@@ -11,7 +11,7 @@ module WorkoutTimerClassifier
     def initialize(query)
       @query = query.dup
       split_query
-      validate_input
+      return validate_input
     end
 
     def parse
@@ -28,6 +28,7 @@ module WorkoutTimerClassifier
       output = {}
       query_array.each do |query|
         phrase_type = PhraseClassifier.new.classify(query)
+        # make this better
         parser = phrase_type == :rounds ? PhraseParser : TimePhraseParser
         phrase = parser.parse_phrase(query)
         output.merge!(phrase_type => phrase)
@@ -36,8 +37,8 @@ module WorkoutTimerClassifier
     end
 
     def validate_input
-      return empty_query_message if @query_array.empty? || @query_array.nil?
-      return incorrect_query_structure if @query_array.length != 3
+      fail empty_query_message if @query_array.empty? || @query_array.nil?
+      fail incorrect_query_structure if @query_array.length != 3
     end
 
     def empty_query_message
