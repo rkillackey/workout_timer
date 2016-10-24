@@ -11,7 +11,20 @@ module WorkoutTimerClassifier
       end
 
       def num
-        phrase.match(/\d+/).to_s
+        find_keywords || find_num
+      end
+
+      def find_keywords
+        kw = (tokens & TimeKeywords::TIME_SHORTHANDS).first
+        KEYWORD_MAPPING[kw]
+      end
+
+      def find_num
+        phrase.match(RegEx::NUMBERS).to_s
+      end
+
+      def tokens
+        phrase.scan(RegEx::NUMBERS_OR_WORDS)
       end
 
       def phrase

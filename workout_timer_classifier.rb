@@ -4,14 +4,25 @@ require_relative 'workout_timer_classifier/nlp'
 require 'pry'
 
 module WorkoutTimerClassifier
+  module TimeKeywords
+    WORK    = %w(work on)
+    REST    = %w(off rest)
+    ROUNDS  = %w(rounds times x once twice)
+    MINUTES = %w(minutes min mins m)
+    SECONDS = %w(seconds sec secs s)
+    TIME_SHORTHANDS   = %w(once none no)
+  end
 
-  WORK_KEYWORDS     = %w(work on)
-  REST_KEYWORDS     = %w(off rest)
-  ROUNDS_KEYWORDS   = %w(rounds times x)
-  TIME_KEYWORDS     = [WORK_KEYWORDS, REST_KEYWORDS]
+  module RegEx
+    NUMBERS          = /\d+/
+    NUMBERS_OR_WORDS = /\d|\w+/
+  end
 
-  MINUTES_KEYWORDS  = %w(minutes min m)
-  SECONDS_KEYWORDS  = %w(seconds sec s)
+  KEYWORD_MAPPING = {
+    'no' => '0',
+    'once' => '1',
+    'twice' => '2'
+  }
 
   class << self
     def create_workout(query)

@@ -11,29 +11,39 @@ module WorkoutTimerClassifier
     def initialize(query)
       @query = query.dup
       split_query
-      return validate_input
+      validate_input
     end
 
     def parse
-      parse_phrases(query_array)
+      correct_case
+      parse_phrases
     end
 
     private
+
+    def correct_case
+      @query_array.each_with_index do |q, i|
+        @query_array[i] = q.downcase
+      end
+    end
 
     def split_query
       @query_array = @query.split(',').collect(&:strip)
     end
 
-    def parse_phrases(query_array)
+    def parse_phrases
       output = {}
-      query_array.each do |query|
+      @query_array.each do |query|
         phrase_type = PhraseClassifier.new.classify(query)
-        # make this better
-        parser = phrase_type == :rounds ? PhraseParser : TimePhraseParser
+        parser = time_phrase(phrase_type, query) ? PhraseParser : TimePhraseParser
         phrase = parser.parse_phrase(query)
         output.merge!(phrase_type => phrase)
       end
       output
+    end
+
+    def time_phrase(type, query)
+      type == :rounds || query.match(RegEx::NUMBERS).nil?
     end
 
     def validate_input

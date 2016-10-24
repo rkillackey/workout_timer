@@ -5,13 +5,13 @@ module WorkoutTimerClassifier
         num + ' ' + length
       end
 
-      def tokens
-        phrase.scan(/\d|\w+/)
+      def num
+        find_num
       end
 
       def length
-        return 'minutes' if (MINUTES_KEYWORDS & tokens).length > 0
-        return 'seconds' if (SECONDS_KEYWORDS & tokens).length > 0
+        return 'minutes' if (TimeKeywords::MINUTES & tokens).length > 0
+        return 'seconds' if (TimeKeywords::SECONDS & tokens).length > 0
       end
     end
   end

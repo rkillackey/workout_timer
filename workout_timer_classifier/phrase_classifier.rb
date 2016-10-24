@@ -5,9 +5,9 @@ module WorkoutTimerClassifier
 
     def initialize
       classifier.ignore_words = []
-      classifier.train(:rest, REST_KEYWORDS.join('. '))
-      classifier.train(:work, WORK_KEYWORDS.join('. '))
-      classifier.train(:rounds, ROUNDS_KEYWORDS.join('. '))
+      classifier.train(:rest, TimeKeywords::REST.join('. '))
+      classifier.train(:work, TimeKeywords::WORK.join('. '))
+      classifier.train(:rounds, TimeKeywords::ROUNDS.join('. '))
     end
 
     def classify(phrase)
