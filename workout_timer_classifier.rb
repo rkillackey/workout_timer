@@ -5,12 +5,12 @@ require 'pry'
 
 module WorkoutTimerClassifier
   module TimeKeywords
-    WORK    = %w(work on)
-    REST    = %w(off rest)
-    ROUNDS  = %w(rounds times x once twice)
-    MINUTES = %w(minutes min mins m)
-    SECONDS = %w(seconds sec secs s)
-    TIME_SHORTHANDS   = %w(once none no)
+    WORK         = %w(work on)
+    REST         = %w(off rest)
+    ROUNDS       = %w(rounds times x once twice)
+    MINUTES      = %w(minutes min mins m)
+    SECONDS      = %w(seconds sec secs s)
+    SHORTHANDS   = %w(once none no)
   end
 
   module RegEx

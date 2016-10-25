@@ -2,7 +2,6 @@ require 'stuff-classifier'
 
 module WorkoutTimerClassifier
   class PhraseClassifier
-
     def initialize
       classifier.ignore_words = []
       classifier.train(:rest, TimeKeywords::REST.join('. '))

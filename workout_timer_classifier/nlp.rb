@@ -11,10 +11,10 @@ module WorkoutTimerClassifier
     def initialize(query)
       @query = query.dup
       split_query
+      validate_input
     end
 
     def parse
-      validate_input
       correct_case
       parse_phrases
     end

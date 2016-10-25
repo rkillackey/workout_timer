@@ -15,7 +15,7 @@ module WorkoutTimerClassifier
       end
 
       def find_keywords
-        kw = (tokens & TimeKeywords::TIME_SHORTHANDS).first
+        kw = (tokens & TimeKeywords::SHORTHANDS).first
         KEYWORD_MAPPING[kw]
       end
 
