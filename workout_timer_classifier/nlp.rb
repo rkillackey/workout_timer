@@ -11,10 +11,10 @@ module WorkoutTimerClassifier
     def initialize(query)
       @query = query.dup
       split_query
-      validate_input
     end
 
     def parse
+      validate_input
       correct_case
       parse_phrases
     end
@@ -27,8 +27,8 @@ module WorkoutTimerClassifier
       end
     end
 
-    def split_query
-      @query_array = @query.split(',').collect(&:strip)
+    def invalid?
+      @query_array.empty? || @query_array.nil? || @query_array.length != 3
     end
 
     def parse_phrases
@@ -42,13 +42,17 @@ module WorkoutTimerClassifier
       output
     end
 
+    def split_query
+      @query_array = @query.split(',').collect(&:strip)
+    end
+
     def time_phrase(type, query)
       type == :rounds || query.match(RegEx::NUMBERS).nil?
     end
 
     def validate_input
-      fail empty_query_message if @query_array.empty? || @query_array.nil?
-      fail incorrect_query_structure if @query_array.length != 3
+      raise empty_query_message if @query_array.empty? || @query_array.nil?
+      raise incorrect_query_structure if @query_array.length != 3
     end
 
     def empty_query_message
